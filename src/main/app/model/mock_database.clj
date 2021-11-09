@@ -21,13 +21,12 @@
 (defn new-database [] (d/create-conn schema))
 
 (defstate conn :start
-  (do
-    (let [c (new-database)]
+  (let [c (new-database)]
       ;; Seed some data
-      (d/transact! c [{:db/id "1" :person/id 1 :person/address "6" :person/happy? true :person/email "amiee@nowhere.com"}
-                      {:db/id "2" :person/id 2 :person/happy? true :person/children ["3"] :person/email "sam@nowhere.com"}
-                      {:db/id "3" :person/id 3 :person/address "5" :person/happy? true :person/email "sally@nowhere.com"}
-                      {:db/id "4" :person/id 4 :person/happy? true :person/children ["1" "2"] :person/email "grut@nowhere.com"}
-                      {:db/id "5" :address/id 100 :address/street "123 Main St" :address/city "New York"}
-                      {:db/id "6" :address/id 101 :address/street "999 Broadway" :address/city "Miami"}])
-      c)))
+    (d/transact! c [{:db/id "1" :person/id 1 :person/address "6" :person/happy? true :person/email "amiee@nowhere.com"}
+                    {:db/id "2" :person/id 2 :person/happy? true :person/children ["3"] :person/email "sam@nowhere.com"}
+                    {:db/id "3" :person/id 3 :person/address "5" :person/happy? true :person/email "sally@nowhere.com"}
+                    {:db/id "4" :person/id 4 :person/happy? true :person/children ["1" "2"] :person/email "grut@nowhere.com"}
+                    {:db/id "5" :address/id 100 :address/street "123 Main St" :address/city "New York"}
+                    {:db/id "6" :address/id 101 :address/street "999 Broadway" :address/city "Miami"}])
+    c))

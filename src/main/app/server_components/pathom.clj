@@ -21,12 +21,12 @@
   {::p/wrap-parser
    (fn transform-parser-out-plugin-external [parser]
      (fn transform-parser-out-plugin-internal [env tx]
-       (let [{:keys [env tx] :as req} (f {:env env :tx tx})]
+       (let [{:keys [env tx] :as _req} (f {:env env :tx tx})]
          (if (and (map? env) (seq tx))
            (parser env tx)
            {}))))})
 
-(defn log-requests [{:keys [env tx] :as req}]
+(defn log-requests [{:keys [_env tx] :as req}]
   (log/debug "Pathom transaction:" (pr-str tx))
   req)
 
@@ -57,7 +57,7 @@
                          (conj tx :com.wsscode.pathom/trace)
                          tx)))))
 
-(defstate parser
+(defstate parser 
   :start (build-parser db/conn))
 
 (comment

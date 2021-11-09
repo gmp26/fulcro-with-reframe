@@ -4,16 +4,16 @@
            com.taoensso/timbre    {:mvn/version "4.10.0"}
            com.wsscode/pathom     {:mvn/version "2.2.31"}
 
-           re-frame               {:mvn/version "0.12.0"}
+           re-frame/re-frame      {:mvn/version "0.12.0"}
            com.fulcrologic/fulcro {:mvn/version "3.2.4"}
 
-           hiccup                 {:mvn/version "1.0.5"}
-           http-kit               {:mvn/version "2.3.0"}
-           mount                  {:mvn/version "0.1.12"}
+           hiccup/hiccup          {:mvn/version "1.0.5"}
+           http-kit/http-kit      {:mvn/version "2.3.0"}
+           mount/mount            {:mvn/version "0.1.12"}
            org.clojure/core.async {:mvn/version "1.1.587"}
 
            ;; To simulate Datomic on the back-end
-           datascript             {:mvn/version "0.18.4"}
+           datascript/datascript  {:mvn/version "0.18.4"}
 
            ring/ring-core         {:mvn/version "1.8.0"}
            ring/ring-defaults     {:mvn/version "0.3.2"}}
@@ -21,6 +21,6 @@
  :aliases {:dev {:extra-paths ["src/test" "src/dev"]
                  :jvm-opts    ["-XX:-OmitStackTraceInFastThrow"]
                  :extra-deps  {org.clojure/clojurescript   {:mvn/version "1.10.758"}
-                               thheller/shadow-cljs        {:mvn/version "2.9.0"}
+                               thheller/shadow-cljs        {:mvn/version "2.15.13"}
                                binaryage/devtools          {:mvn/version "1.0.0"}
                                org.clojure/tools.namespace {:mvn/version "1.0.0"}}}}}

@@ -5,13 +5,10 @@
     [app.application :refer [SPA]]
     [app.model.person :as person]
     [com.fulcrologic.fulcro.application :as app]
-    [com.fulcrologic.fulcro.mutations :refer [defmutation]]
     [com.fulcrologic.fulcro.components :as comp :refer [defsc]]
     [com.fulcrologic.fulcro.algorithms.denormalize :as fdn]
     [com.fulcrologic.fulcro.data-fetch :as df]
-    [com.fulcrologic.fulcro.components :as comp]
-    [taoensso.timbre :as log]
-    [com.fulcrologic.fulcro.algorithms.denormalize :as fdn]
+    ;[taoensso.timbre :as log]
     [com.fulcrologic.fulcro.inspect.inspect-client :as inspect]))
 
 ;; We can use Fulcro's defsc as a simple `defquery` mechanism
@@ -42,7 +39,7 @@
 (defn run-eql "Run a raw EQL query" [db [_ eql]] (fdn/db->tree eql db db))
 (defn run-eql-entity "Run a raw EQL query starting at an entity" [db [_ ident eql]] (fdn/db->tree eql (get-in db ident) db))
 
-(defn get-person [db [event-name {:keys [person/id]}]]
+(defn get-person [db [_event-name {:keys [person/id]}]]
   (fdn/db->tree (comp/get-query Person db) (get-in db [:person/id id]) db))
 
 (rf/reg-sub :q run-query)
@@ -58,7 +55,7 @@
   [:span (str email ", " (if happy? "Happy!" "sad :(  "))])
 
 (defn ui-person-tree
-  [{:person/keys [id email happy? children address] :as person}]
+  [{:person/keys [id _email happy? children address] :as person}]
   [:div {:key (str id)}
    [ui-basic-person person]
    [:button {:onClick #(comp/transact! SPA [(person/alter-mood {:person/id id :person/happy? (not happy?)})])} "Alter mood"]
@@ -71,7 +68,7 @@
               [ui-person-tree c]]) children)])])
 
 (defn ui-person
-  [{:person/keys [id email happy?] :as person}]
+  [{:person/keys [id _email happy?] :as person}]
   (when id
     [:div {:key (str id)}
      [ui-basic-person person]
@@ -107,4 +104,8 @@
 
 (comment
   (df/load! SPA :all-people Person)
+
+  (app/current-state SPA)
+  ;; => {:fulcro.inspect.core/app-uuid #uuid "86a4309a-ea23-4f1c-8818-0fd25f940644", :com.fulcrologic.fulcro.application/active-remotes #{}, :person/id {3 {:person/id 3, :person/address [:address/id 100], :person/email "sally@nowhere.com", :person/happy? true}, 1 {:person/id 1, :person/address [:address/id 101], :person/email "amiee@nowhere.com", :person/happy? true}, 2 {:person/id 2, :person/email "sam@nowhere.com", :person/happy? true, :person/children [[:person/id 3]]}, 4 {:person/id 4, :person/email "grut@nowhere.com", :person/happy? true, :person/children [[:person/id 1] [:person/id 2]]}}, :address/id {100 {:address/id 100, :address/street "123 Main St", :address/city "New York"}, 101 {:address/id 101, :address/street "999 Broadway", :address/city "Miami"}}, :all-people [[:person/id 4] [:person/id 3] [:person/id 2] [:person/id 1]]}
+
   )

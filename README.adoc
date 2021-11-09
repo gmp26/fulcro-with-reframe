@@ -7,6 +7,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
+
 This is a simple project that plays with the idea that Fulcro could be used to manage the full-stack behavior
 of a re-frame application.  I am by no means a Reframe expert, so my integration experiments in this repository
 may violate some central bit of wisdom that I am unaware of. That said, I know that Reframe does not come
@@ -30,7 +31,9 @@ $ yarn
 $ npx shadow-cljs watch main
 -----
 
-Then start a REPL (and include the `:dev` alias):
+Use calva jack-in to
+start a shadow-cljs REPL connected to the editor pointing at the :main build.
+
 
 [souce, bash]
 -----

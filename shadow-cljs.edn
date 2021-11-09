@@ -1,10 +1,21 @@
-{:deps   {:aliases [:dev]}
-
+{:deps   false
+ :dependencies [;[org.clojure/clojurescript   "1.10.758"]
+                ;[thheller/shadow-cljs "2.15.12"]
+                [binaryage/devtools "1.0.2"]
+                [reagent               "1.1.0"]
+                [reagent-utils/reagent-utils         "0.3.3"]
+                [re-frame              "1.2.0"]
+                [com.fulcrologic/fulcro "3.2.4"]]
+ :source-paths ["src/main"]
  :nrepl  {:port 9000}
+; :dev-http {3000 "resources/public"}
 
  :builds {:main {:target     :browser
                  :output-dir "resources/public/js/main"
                  :asset-path "/js/main"
                  :modules    {:main {:init-fn app.client/init}}
+                 :compiler-options {:output-wrapper false}
                  :devtools   {:after-load app.client/refresh
                               :preloads   [com.fulcrologic.fulcro.inspect.preload]}}}}
+
+

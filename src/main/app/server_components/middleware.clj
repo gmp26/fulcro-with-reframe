@@ -7,13 +7,14 @@
                                                           wrap-transit-params
                                                           wrap-transit-response]]
     [ring.middleware.defaults :refer [wrap-defaults]]
-    [ring.util.response :refer [response file-response resource-response]]
+    ;[ring.util.response :refer [response file-response resource-response]]
     [ring.util.response :as resp]
     [hiccup.page :refer [html5]]
-    [taoensso.timbre :as log]))
+    #_[taoensso.timbre :as log]
+   ))
 
 (def ^:private not-found-handler
-  (fn [req]
+  (fn [_req]
     {:status  404
      :headers {"Content-Type" "text/plain"}
      :body    "NOPE"}))
